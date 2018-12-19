@@ -1,0 +1,15 @@
+.video-container{
+    position: relative;
+    padding-top: 56.25%
+}
+
+.video{
+    position: absolute;
+    top: 0;
+}
+
+.body{
+    width: 100vw;
+    height: 100vh;
+}
+

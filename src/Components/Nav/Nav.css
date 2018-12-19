@@ -1,29 +1,109 @@
-.nav{
+@import url('https://fonts.googleapis.com/css?family=Vidaloka');
+
+.nav-container{
     display: flex;
     flex-direction: row;
     width: 100vw;
-    height: 13vh;
+    height: 11vh;
     background: #000D26;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    z-index: 100;
 }
 
 .nav-left{
+    display: flex;
     width: 25%;
-    background: yellow;
+    /* background: yellow; */
     height: 100%;
+    align-items: flex-end;
+    justify-content: flex-start
+    
+}
+
+.logo{
+    width: 45%;
+    height: 70%;
+    padding: 6px;
 }
 
 .nav-center{
     display: flex;
     flex-direction: row;
-    justify-content: space-evenly;
+    justify-content: center;
     align-items: flex-end;
     width: 50%;
     height: 100%;
-    background: green;
+    /* background: green; */
 }
 
 .nav-right{
+    display: flex;
+    flex-direction: row;
+    align-content: right;
     width: 25%;
     height: 100%;
-    background: orange;
+    /* background: orange; */
+}
+
+.cart-link{
+    height: 25%;
+    padding: 12px;
+    color: white;
+    font-family: 'Vidaloka', serif;
+    
+}
+
+.login-link{
+    margin-left: 60%;
+    height: 25%;
+    padding: 12px;
+    color: white;
+    font-family: 'Vidaloka', serif;
+}
+
+.center-stuff1{
+    padding: 12px;
+    padding-bottom: 20px;
+    color: white;
+    margin-right: 9%;
+    font-family: 'Vidaloka', serif;
+    font-weight: bold;
+    
+}
+
+.center-stuff2{
+    padding: 12px;
+    padding-bottom: 20px;
+    color: white;
+    font-family: 'Vidaloka', serif;
+    font-weight: bold
+}
+
+.center-stuff3{
+    padding: 12px;
+    padding-bottom: 20px;
+    color: white;
+    margin-left: 8%;
+    font-family: 'Vidaloka', serif;
+    font-weight: bold
+}
+
+.center-stuff1:hover, .center-stuff2:hover, .center-stuff3:hover {
+    border-bottom: 5px solid white
+}
+
+a:link{
+    text-decoration: none
+
+}
+
+a:visited{
+    color: white;
+}
+
+a.logo-link{
+    display: flex;
+    margin-left: 5%
 }
