@@ -47,7 +47,13 @@
     /* background: orange; */
 }
 
+.cart-text{
+    margin-right: 10%
+}
+
 .cart-link{
+    display: flex;
+    flex-wrap: nowrap;
     height: 25%;
     padding: 12px;
     color: white;
@@ -55,8 +61,14 @@
     
 }
 
+a.cart-to-link{
+    display: flex;
+    justify-content: space-around
+    
+}
+
 .login-link{
-    margin-left: 60%;
+    margin-left: 54%;
     height: 25%;
     padding: 12px;
     color: white;

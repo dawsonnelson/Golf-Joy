@@ -1,0 +1,82 @@
+@import url('https://fonts.googleapis.com/css?family=Vidaloka');
+
+.gear-pic{
+    width: 1440px;
+    height: 400px;
+}
+.GNav{
+    display: flex;
+    width: 100vw;
+    height: 8vh;
+    /* background-color: green; */
+    align-items: center;
+    border-bottom: solid black 1px
+
+}
+
+.filter-span-1{
+    font-size: 15px;
+    margin-left: 10%;
+    font-family: 'Vidaloka', serif;
+}
+
+.filter-span{
+    font-size: 15px;
+    margin-left: 5%;
+    font-family: 'Vidaloka', serif;
+}
+
+.gear-item-container{
+    width: 100vw;
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.item-container{
+    display: flex;
+    flex-direction: column;
+    /* padding: 30px; */
+    margin-left: 4%;
+    margin-top: 2%;
+    margin-bottom: 2%;
+    width: 28vw;
+    height: 63vh;
+
+    background: #F3F3F5
+}
+
+.item-top{
+    width: 100%;
+    height: 80%;
+    /* background: yellow; */
+}
+
+.item-bottom{
+    width: 100%;
+    height: 20%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    /* background: blue */
+}
+
+.item-name{
+    width: 100%;
+    height: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Vidaloka', serif;
+    font-size: 19px;
+}
+
+.item-price{
+    width: 100%;
+    height: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Vidaloka', serif;
+}

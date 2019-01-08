@@ -1,22 +1,63 @@
 import React, {Component} from 'react';
 import './Shoes.css';
 import Nav from '../../Components/Nav/Nav';
+import {connect} from 'react-redux';
+import axios from 'axios'
 
-export default class Shoes extends Component{
+class Shoes extends Component{
     constructor(props){
         super(props);
 
         this.state = {
-            number: 3
+            stuff: [],
+            filter: ''
         }
     }
 
+    componentDidMount(){
+        axios.get('/api/getShoes')
+        .then(res=>{
+            console.log(res.data)
+            this.setState({
+                stuff: res.data
+            })
+            console.log(this.state)
+        })
+    }
+
+    setFilter(test){
+        console.log(test)
+            this.setState({
+                filter: test
+            })
+    }
+
     renderItems(){
-        return(
-            <div className = 'item'>
-            
-            </div>
-        )
+        if(this.state.filter === ''){
+            return this.state.stuff.map((products) => {
+                return(
+                    <div className = 'item-container'>
+                        <div className = 'item-top'><img className = 'shoe-item-top' src={products.image} alt = '' /></div>
+                        <div className = 'item-bottom'>
+                            <div className = 'item-name'>{products.name}</div>
+                            <div className = 'item-price'>${products.price}</div>
+                        </div>
+                    </div>
+                )
+            })
+        } else {
+            return this.state.stuff.filter(property => property.subtype === this.state.filter).map((products) => {
+                return(
+                    <div className = 'item-container'>
+                        <div className = 'item-top'><img className = 'shoe-item-top' src={products.image} alt = '' /></div>
+                        <div className = 'item-bottom'>
+                            <div className = 'item-name'>{products.name}</div>
+                            <div className = 'item-price'>${products.price}</div>
+                        </div>
+                    </div>
+                )
+            })
+        }
     }
 
     render(){
@@ -28,19 +69,22 @@ export default class Shoes extends Component{
                     <div className = 'SBNav'>
                         <span className = 'filter-span-1'>Filter by</span>
                         <span className = 'filter-span'>ALL</span>
-                        <span className = 'filter-span'>GOLF</span>
-                        <span className = 'filter-span'>DRESS</span>
-                        <span className = 'filter-span'>CASUAL</span>
+                        <button className = 'filter-span' onClick={() => this.setFilter('Golf')}>GOLF</button>
+                        <button className = 'filter-span' onClick={() => this.setFilter('Dress')}>DRESS</button>
+                        <button className = 'filter-span' onClick={() => this.setFilter('Casual')}>CASUAL</button>
                     </div>
                     <div className = 'shoe-item-container'>
-                    {/* renderItems */}
-                    <div className = 'item-container'>
-                        <div className = 'item-top'><img className = 'shoe-item-top' src={'http://dummyimage.com/300x300.bmp/cc0000/ffffff'} alt = '' /></div>
-                        <div className = 'item-bottom'></div>
-                    </div>
+                    {this.renderItems()}
                     </div>
                 </div>
             </div>
         )
     }
 }
+
+function mapStateToProps(duckState) {
+    return {
+    }
+}
+
+export default connect(mapStateToProps, {})(Shoes);

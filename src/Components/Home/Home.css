@@ -1,15 +1,51 @@
+
 .video-container{
-    position: relative;
-    padding-top: 56.25%
+    display: flex;
+    position: absolute;
 }
 
 .video{
-    position: absolute;
-    top: 0;
+    position: relative;
+    height: 810px;
+    background-size: cover;
+    top: 0
 }
 
 .body{
+    position: absolute;
     width: 100vw;
-    height: 100vh;
+    height: 88vh;
+
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-top: 8%;
 }
 
+
+.filler{
+    display: flex;
+    justify-content: center;
+    font-size: 200px;
+    color: white;
+    width: 50%;
+}
+
+.under-filler{
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    font-size: 40px;
+    color: white;
+}
+
+.under-under{
+    width: 46%;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    font-size: 40px;
+    color: white;
+}

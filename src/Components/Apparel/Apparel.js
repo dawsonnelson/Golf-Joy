@@ -1,8 +1,77 @@
 import React, {Component} from 'react';
 import './Apparel.css';
 import Nav from '../../Components/Nav/Nav';
+import {connect} from 'react-redux'
+import axios from 'axios'
 
-export default class Shoes extends Component{
+class Apparel extends Component{
+    constructor(props){
+        super(props);
+
+        this.state = {
+            stuff: [],
+            filter: ''
+        }
+
+        // this.setFilter=this.setFilter.bind(this)
+    }
+
+    componentDidMount(){
+        axios.get('/api/getApparel')
+        .then(res=>{
+            console.log(res.data)
+            this.setState({
+                stuff: res.data
+            })
+            console.log(this.state.stuff)
+        })
+    }
+
+    setFilter(test){
+        console.log(test)
+            this.setState({
+                filter: test
+            })
+    }
+
+    // getGolfShirts(){
+    //     axios.get('/api/getGolfShirt')
+    //     .then(res=>{
+    //         console.log(res.data)
+    //         this.setState({
+    //             stuff: res.data
+    //         })
+    //         console.log(this.state)
+    //     })
+    // }
+
+    renderItems(){
+        if(this.state.filter === ''){
+            return this.state.stuff.map((products) => {
+                return(
+                    <div className = 'item-container'>
+                        <div className = 'item-top'><img className = 'shoe-item-top' src={products.image} alt = '' /></div>
+                        <div className = 'item-bottom'>
+                            <div className = 'item-name'>{products.name}</div>
+                            <div className = 'item-price'>${products.price}</div>
+                        </div>
+                    </div>
+                )
+            })
+        } else {
+            return this.state.stuff.filter(property => property.subtype === this.state.filter).map((products) => {
+                return(
+                    <div className = 'item-container'>
+                        <div className = 'item-top'><img className = 'shoe-item-top' src={products.image} alt = '' /></div>
+                        <div className = 'item-bottom'>
+                            <div className = 'item-name'>{products.name}</div>
+                            <div className = 'item-price'>${products.price}</div>
+                        </div>
+                    </div>
+                )
+            })
+        }
+    }
 
     render(){
         return(
@@ -12,20 +81,27 @@ export default class Shoes extends Component{
                 <div className = 'apparel-body'>
                     <div className = 'APNav'>
                         <span className = 'filter-span-1'>Filter by</span>
-                        <span className = 'filter-span'>ALL</span>
-                        <span className = 'filter-span'>GOLF SHIRTS</span>
-                        <span className = 'filter-span'>DRESS SHIRTS</span>
-                        <span className = 'filter-span'>MID LAYERS</span>
-                        <span className = 'filter-span'>SWEATERS</span>
-                        <span className = 'filter-span'>BOTTOMS</span>
-                        <span className = 'filter-span'>OUTERWEAR</span>
-                        <span className = 'filter-span'>GLOVE</span>
+                        <button className = 'filter-span'>ALL</button>
+                        <button className = 'filter-span' onClick={() => this.setFilter('Golf Shirt')}>GOLF SHIRTS</button>
+                        <button className = 'filter-span' onClick={() => this.setFilter('Dress Shirt')}>DRESS SHIRTS</button>
+                        <button className = 'filter-span' onClick={() => this.setFilter('Mid Layer')}>MID LAYERS</button>
+                        <button className = 'filter-span' onClick={() => this.setFilter('Sweater')}>SWEATERS</button>
+                        <button className = 'filter-span' onClick={() => this.setFilter('Bottom')}>BOTTOMS</button>
+                        <button className = 'filter-span' onClick={() => this.setFilter('Outerwear')}>OUTERWEAR</button>
+                        {/* <span className = 'filter-span'>GLOVE</span> */}
                     </div>
                     <div className = 'apparel-item-container'>
-                    {/* renderItems */}
+                    {this.renderItems()}
                     </div>
                 </div>
             </div>
         )
     }
 }
+
+function mapStateToProps(duckState) {
+    return {
+    }
+}
+
+export default connect(mapStateToProps, {})(Apparel);
