@@ -4,6 +4,7 @@ import Nav from '../../Components/Nav/Nav'
 import {connect} from 'react-redux';
 import {toggle} from '../../Logic/logic'
 import {updateProduct} from '../../ducks/reducer'
+import { Button } from '@material-ui/core';
 // import axios from 'axios'
 
 class ProductPage extends Component{
@@ -11,45 +12,66 @@ class ProductPage extends Component{
         super(props);
 
         this.state = {
-            thing:[]
+            thing:[],
+            Button: false
         }
-    // this.saveToLocal.this.saveToLocal.bind(this)
 }
 
 componentDidMount(){
-    // this.saveToLocal()
-    // const recipe = JSON.parse( localStorage.getItem( "Data" ) );
-    // this.props.updateProduct(recipe)
-    // console.log(recipe)
-
-    // this.setState({
-    //     thing: this.props.product.name
-    // })
-
-
-    // console.log(localStorage.getItem( "Data" ))
-    // console.log(this.props.product)
-    // // console.log(toggle(true)) keep this
-    // console.log(this.state.thing)
 }
 
-// saveToLocal(){
-//     const local = this.props.product;
-//     localStorage.setItem('Data', JSON.stringify(local));
-// }
+descriptionButton(){
+    this.setState({
+        Button: false
+    })
+}
+
+detailsButton(){
+    this.setState({
+        Button: true
+    })
+}
 
 
 render(){
     console.log(localStorage.getItem( "Data" ))
     const recipe = JSON.parse( localStorage.getItem( "Data" ) );
-    // console.log(this.state.thing)
-    // console.log(recipe.name)
+    const Button = this.state.Button;
+    let info = true
+    if(Button === true){
+        info = recipe.details
+    } else {
+        info = recipe.description
+    }
+
     return(
         <div>
             <Nav url = '/'/>
             <div className = 'product-1'>
-                <div className = 'product-info'></div>
-                <div className = 'product-image'>{recipe.name}</div>
+                <div className = 'product-info'>
+                    <div className = 'info-div'>
+                        <span className = 'product-page-item-name'>{recipe.name}</span>
+                        <span className = 'product-page-item-price'>${recipe.price}</span>
+                        <div className = 'button-div'>
+                            <button className = 'description-button' onClick={() => this.descriptionButton()}>Description</button>
+                            <button className = 'details-button' onClick={() => this.detailsButton()}>Details</button>
+                        </div>
+                        <div className = 'desc-detail-div'>
+                            <span className = 'product-page-item-info'>
+                                {info}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div className = 'product-image'><img className = 'product-page-picture' src={recipe.image} alt=''/></div>
+            </div>
+            <div className = 'product-2'>
+                <div className = 'product-info2'>
+                
+                </div>
+                <div className = 'product-image2'>
+                    <img className = 'product-page-picture' src={recipe.image} alt=''/>
+                </div>
             </div>
         </div>
     )
