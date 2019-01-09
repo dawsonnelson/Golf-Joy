@@ -1,11 +1,12 @@
 const initialState = {
     cart: [],
-    products: [],
     user: {},
+    product: []
 }
 
 const UPDATE_CART = 'UPDATE_CART';
 const UPDATE_USER = 'UPDATE_USER';
+const UPDATE_PRODUCT = 'UPDATE_PRODUCT';
 
 function reducer( state = initialState, action){
     console.log('REDUCER HIT: Action ->', action);
@@ -15,6 +16,9 @@ function reducer( state = initialState, action){
 
         case UPDATE_USER:
             return Object.assign({}, state, { user: action.payload });
+            
+        case UPDATE_PRODUCT:
+            return Object.assign({}, state, { product: action.payload });
 
             default: return state
     }
@@ -31,6 +35,13 @@ export function updateUser (user){
     return {
         type: UPDATE_USER,
         payload: user
+    }
+}
+
+export function updateProduct (product){
+    return {
+        type: UPDATE_PRODUCT,
+        payload: product
     }
 }
 

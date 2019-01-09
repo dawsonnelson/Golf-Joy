@@ -2,6 +2,9 @@ import React, {Component} from 'react';
 import './Home.css'
 import Nav from '../Nav/Nav';
 import {connect} from 'react-redux'
+// import {toggle} from '../../Logic/logic'
+//toggle is for the function tests
+
 
 class Home extends Component{
 

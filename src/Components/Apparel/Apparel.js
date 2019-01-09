@@ -50,7 +50,7 @@ class Apparel extends Component{
             return this.state.stuff.map((products) => {
                 return(
                     <div className = 'item-container'>
-                        <div className = 'item-top'><img className = 'shoe-item-top' src={products.image} alt = '' /></div>
+                        <div className = 'item-top'><img className = 'shoe-item-top' src={products.image} onMouseOver={e => (e.currentTarget.src = products.image2)} onMouseOut={e => (e.currentTarget.src = products.image)} alt = '' /></div>
                         <div className = 'item-bottom'>
                             <div className = 'item-name'>{products.name}</div>
                             <div className = 'item-price'>${products.price}</div>
@@ -62,7 +62,7 @@ class Apparel extends Component{
             return this.state.stuff.filter(property => property.subtype === this.state.filter).map((products) => {
                 return(
                     <div className = 'item-container'>
-                        <div className = 'item-top'><img className = 'shoe-item-top' src={products.image} alt = '' /></div>
+                        <div className = 'item-top'><img className = 'shoe-item-top' src={products.image} onMouseOver={e => (e.currentTarget.src = products.image2)} onMouseOut={e => (e.currentTarget.src = products.image)} alt = '' /></div>
                         <div className = 'item-bottom'>
                             <div className = 'item-name'>{products.name}</div>
                             <div className = 'item-price'>${products.price}</div>

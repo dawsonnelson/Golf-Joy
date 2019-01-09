@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import './Shoes.css';
 import Nav from '../../Components/Nav/Nav';
 import {connect} from 'react-redux';
+import { Link } from 'react-router-dom';
+import {updateProduct} from '../../ducks/reducer'
 import axios from 'axios'
 
 class Shoes extends Component{
@@ -21,7 +23,7 @@ class Shoes extends Component{
             this.setState({
                 stuff: res.data
             })
-            console.log(this.state)
+            // console.log(this.state)
         })
     }
 
@@ -32,14 +34,29 @@ class Shoes extends Component{
             })
     }
 
+    setProduct(data){
+        // console.log(data)
+        this.props.updateProduct(data)
+        console.log(this.props)
+        this.saveToLocal(data)
+    }
+
+    saveToLocal(data){
+        console.log(data)
+        const local = data;
+        localStorage.setItem('Data', JSON.stringify(local));
+    }
+
     renderItems(){
         if(this.state.filter === ''){
             return this.state.stuff.map((products) => {
                 return(
                     <div className = 'item-container'>
-                        <div className = 'item-top'><img className = 'shoe-item-top' src={products.image} alt = '' /></div>
+                        <div className = 'item-top'>
+                        <Link to ='/ProductPage' onClick ={() => this.setProduct(products)}><img className = 'shoe-item-top' src={products.image} onMouseOver={e => (e.currentTarget.src = products.image2)} onMouseOut={e => (e.currentTarget.src = products.image)} alt = '' /></Link>
+                        </div>
                         <div className = 'item-bottom'>
-                            <div className = 'item-name'>{products.name}</div>
+                        <div className = 'item-name'><Link to ='/ProductPage' className = 'item-link' onClick ={() => this.setProduct(products)}>{products.name}</Link></div>
                             <div className = 'item-price'>${products.price}</div>
                         </div>
                     </div>
@@ -49,9 +66,11 @@ class Shoes extends Component{
             return this.state.stuff.filter(property => property.subtype === this.state.filter).map((products) => {
                 return(
                     <div className = 'item-container'>
-                        <div className = 'item-top'><img className = 'shoe-item-top' src={products.image} alt = '' /></div>
+                        <div className = 'item-top'>
+                        <Link to ='/ProductPage' onClick ={() => this.setProduct(products)}><img className = 'shoe-item-top' src={products.image} onMouseOver={e => (e.currentTarget.src = products.image2)} onMouseOut={e => (e.currentTarget.src = products.image)} alt = '' /></Link>
+                        </div>
                         <div className = 'item-bottom'>
-                            <div className = 'item-name'>{products.name}</div>
+                            <div className = 'item-name'><Link to ='/ProductPage' className = 'item-link' onClick ={() => this.setProduct(products)}>{products.name}</Link></div>
                             <div className = 'item-price'>${products.price}</div>
                         </div>
                     </div>
@@ -59,6 +78,8 @@ class Shoes extends Component{
             })
         }
     }
+
+    // <Link to ='/ProductPage' onClick ={() => this.setProduct(products)}/>
 
     render(){
         return(
@@ -84,7 +105,8 @@ class Shoes extends Component{
 
 function mapStateToProps(duckState) {
     return {
+        product: duckState.product
     }
 }
 
-export default connect(mapStateToProps, {})(Shoes);
+export default connect(mapStateToProps, {updateProduct})(Shoes);
