@@ -4,7 +4,14 @@ import Nav from '../../Components/Nav/Nav'
 import {connect} from 'react-redux';
 import {toggle} from '../../Logic/logic'
 import {updateProduct} from '../../ducks/reducer'
-import { Button } from '@material-ui/core';
+import MenuItem from '@material-ui/core/MenuItem';
+import Select from '@material-ui/core/Select';
+import Input from '@material-ui/core/Input';
+import InputLabel from '@material-ui/core/InputLabel';
+import FormControl from '@material-ui/core/FormControl';
+
+
+
 // import axios from 'axios'
 
 class ProductPage extends Component{
@@ -13,7 +20,8 @@ class ProductPage extends Component{
 
         this.state = {
             thing:[],
-            Button: false
+            Button: false,
+            age: ''
         }
 }
 
@@ -31,6 +39,10 @@ detailsButton(){
         Button: true
     })
 }
+
+handleChange = event => {
+    this.setState({ [event.target.name]: event.target.value });
+  };
 
 
 render(){
@@ -67,10 +79,46 @@ render(){
             </div>
             <div className = 'product-2'>
                 <div className = 'product-info2'>
-                
+                    <div className = 'info-div2'>
+                        <div className = 'mistake'>
+                            <div className = 'ppin'>
+                                <span className = 'product-page-item-name2'>{recipe.name}</span>
+                            </div>
+                            <div className = 'ppip'>
+                                <span className = 'product-page-item-price2'>${recipe.price}</span>
+                            </div>
+                        </div>
+                        <div className = 'order-div'>
+                            <button className = 'order-button'>Add to Cart</button>
+                            <FormControl className='qty-button'>
+                                <InputLabel htmlFor="age-helper">qty</InputLabel>
+                                <Select
+                                value={this.state.age}
+                                onChange={this.handleChange}
+                                input={<Input name="age" id="age-helper" />}
+                            >
+                                <MenuItem value="">
+                                    <em>None</em>
+                                </MenuItem>
+                                <MenuItem value={1}>1</MenuItem>
+                                <MenuItem value={2}>2</MenuItem>
+                                <MenuItem value={3}>3</MenuItem>
+                                <MenuItem value={4}>4</MenuItem>
+                                <MenuItem value={5}>5</MenuItem>
+                                <MenuItem value={6}>6</MenuItem>
+                                <MenuItem value={7}>7</MenuItem>
+                                <MenuItem value={8}>8</MenuItem>
+                                <MenuItem value={9}>9</MenuItem>
+                                <MenuItem value={10}>10</MenuItem>
+
+                            </Select>
+                            </FormControl>
+                        </div>
+                    </div>
                 </div>
                 <div className = 'product-image2'>
                     <img className = 'product-page-picture' src={recipe.image} alt=''/>
+                    <img className = 'product-page-picture' src={recipe.image2} alt=''/>
                 </div>
             </div>
         </div>
