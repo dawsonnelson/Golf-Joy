@@ -38,23 +38,12 @@ class Cart extends Component{
         })
     }
 
-    // onToken = (token) => {
-    //     fetch('/save-stripe-token', {
-    //       method: 'POST',
-    //       body: JSON.stringify(token),
-    //     }).then(response => {
-    //       response.json().then(data => {
-    //         alert(`We are in business, ${data.email}`);
-    //       });
-    //     });
-    //   }
-
       onToken = token => {
         token.card = void 0;
         axios.post("/api/payment", { token, amount: this.state.total})
           .then(res => {
             console.log(res);
-            // axios.post('/api/email')
+            axios.post('/api/email')
           });
       };
 

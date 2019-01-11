@@ -38,37 +38,37 @@ app.use(express.static( `${__dirname}/../build`) );
 app.use(express.json());
 
 
-//   app.post('/api/email', (req, res) =>{
-//         let user = req.session.user.email
+  app.post('/api/email', (req, res) =>{
+        let user = req.session.user.email
 
-//         let transporter = nodemailer.createTransport({
-//             service: 'gmail',
-//             secure: false,
-//             port: 25,
-//             auth: {
-//                 user: 'golfjoyfun@gmail.com',
-//                 pass: PASS
-//             },
-//             tls: {
-//                 rejectUnauthorized: false
-//             }
-//         });
+        let transporter = nodemailer.createTransport({
+            service: 'gmail',
+            secure: false,
+            port: 25,
+            auth: {
+                user: 'golfjoyfun@gmail.com',
+                pass: PASS
+            },
+            tls: {
+                rejectUnauthorized: false
+            }
+        });
 
-//         let HelperOptions = {
-//             from: '"Golf Joy" <golfjoyfun@gmail.com',
-//             to: {user},
-//             subject: 'Hello, world!',
-//             text: 'good job'
-//         };
+        let HelperOptions = {
+            from: '"Golf Joy" <golfjoyfun@gmail.com',
+            to: user,
+            subject: 'Hello, world!',
+            text: 'good job'
+        };
 
-//         transporter.sendMail(HelperOptions, (error, info) => {
-//             if (error) {
-//             return console.log(error);
-//             }
-//             console.log("The message was sent!");
-//             console.log(info);
-//         });
-//         })
+        transporter.sendMail(HelperOptions, (error, info) => {
+            if (error) {
+            return console.log(error);
+            }
+            console.log("The message was sent!");
+            // console.log(info);
+        });
+        })
 
 //endpoints
 app.get('/auth/callback', async (req, res) => {
@@ -89,7 +89,7 @@ app.get('/auth/callback', async (req, res) => {
 
     let resWithUserData = await axios.get(`https://${REACT_APP_DOMAIN}/userinfo?access_token=${resWithToken.data.access_token}`)
 
-    console.log('user data', resWithUserData.data)
+    // console.log('user data', resWithUserData.data)
 
     let {
         email,
@@ -98,7 +98,7 @@ app.get('/auth/callback', async (req, res) => {
         sub
     } = resWithUserData.data;
 
-    console.log(email)
+    // console.log(email)
    let db = req.app.get('db');
    let foundUser = await db.find_user([sub])
     if(foundUser[0]) {
