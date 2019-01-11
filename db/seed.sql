@@ -18,6 +18,16 @@ create table users (
     auth_id text
 );
 
+Create table Cart(
+    id serial Primary key,
+    product_id integer,
+    user_id integer,
+    image text,
+    name text, 
+    price integer
+
+)
+
 
 insert into Products (type, subtype, image, image2, description, details, name, price) values ('Shoe', 'Golf', 'https://sits-pod38.demandware.net/dw/image/v2/AAZW_PRD/on/demandware.static/-/Sites-footjoy-master/default/dw4e6efe76/FJ_50101_01.png?sw=650&sh=650&sm=fit', 'https://sits-pod38.demandware.net/dw/image/v2/AAZW_PRD/on/demandware.static/-/Sites-footjoy-master/default/dw8862a721/FJ_50101_02.png?sw=650&sh=650&sm=fit', 'The definition of a classic golf shoe. Paying homage to the heritage and history of both FJ and the game of golf, these golf shoes deliver a perfect blend of performance and luxury on the course.', 'Calfskin Leather, Goodyear Welted Construction, Full Leather Linings + Outsole, Cork Underlay Cushioing, Exquisite Details + Finishes.', 'Shield Tip /White Scotch Grain', 750);
 insert into Products (type, subtype, image, image2, description, details, name, price) values ('Shoe', 'Golf', 'https://sits-pod38.demandware.net/dw/image/v2/AAZW_PRD/on/demandware.static/-/Sites-footjoy-master/default/dwb1d3b44b/FJ_50102_01.png?sw=650&sh=650&sm=fit', 'https://sits-pod38.demandware.net/dw/image/v2/AAZW_PRD/on/demandware.static/-/Sites-footjoy-master/default/dw41e018f6/FJ_50102_02.png?sw=650&sh=650&sm=fit', 'The definition of a classic golf shoe. Paying homage to the heritage and history of both FJ and the game of golf, these golf shoes deliver a perfect blend of performance and luxury on the course.', 'Calfskin Leather, Goodyear Welted Construction, Full Leather Linings + Outsole, Cork Underlay Cushioing, Exquisite Details + Finishes.', 'Shield Tip/White and black scotch grain', 750);

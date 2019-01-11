@@ -10,7 +10,7 @@ class Nav extends Component{
         super();
 
         this.state = {
-            ya: false
+            // ya: false
         }
     }
 
@@ -33,7 +33,7 @@ class Nav extends Component{
                 </div>
                 <div className = 'nav-right'>
                     <div className = 'login-link'><button onClick = {this.login}>Log in</button></div>
-                    <div className = 'cart-link'><Link to ="/Cart" className = 'cart-to-link'><span className='cart-text'>Cart</span><AddShoppingCartIcon /></Link></div>
+                    <div className = 'cart-link'><Link to ="/Cart" className = 'cart-to-link'><span className='cart-text'>Cart</span><AddShoppingCartIcon /></Link>{this.props.cart}</div>
                 </div>
             </div>
         )
@@ -43,6 +43,7 @@ class Nav extends Component{
 
 function mapStateToProps(duckState) {
     return {
+        cart: duckState.cart
     }
 }
 

@@ -3,10 +3,84 @@ import './Cart.css'
 import Nav from '../Nav/Nav';
 import {connect} from 'react-redux'
 import Select from 'react-select'
+import axios from 'axios';
+import StripeCheckout from 'react-stripe-checkout';
+import { appendFile } from 'fs';
 
 class Cart extends Component{
+    constructor(props){
+        super(props);
+
+        this.state ={
+            products: [],
+            total: 0
+        }
+    }
+
+    componentDidMount(){
+        axios.get('/api/getCart')
+        .then(res=>{
+            // console.log(res.data)
+            this.setState({
+                products: res.data,
+            })
+            this.updateTotal()
+        })
+    }
+
+    updateTotal(){
+        this.state.products.map((product) => {
+            // console.log(product)
+            let doo = (product.price * 100 )+ this.state.total
+            this.setState({
+                total: doo
+            })
+        })
+    }
+
+    // onToken = (token) => {
+    //     fetch('/save-stripe-token', {
+    //       method: 'POST',
+    //       body: JSON.stringify(token),
+    //     }).then(response => {
+    //       response.json().then(data => {
+    //         alert(`We are in business, ${data.email}`);
+    //       });
+    //     });
+    //   }
+
+      onToken = token => {
+        token.card = void 0;
+        axios.post("/api/payment", { token, amount: this.state.total})
+          .then(res => {
+            console.log(res);
+            // axios.post('/api/email')
+          });
+      };
+
+    renderProducts(){
+        return this.state.products.map((product) => {
+        
+            return(
+                <div className = 'other-info'>
+                        {/* <img className = 'cart-image' src={''} alt={''}/> */}
+                            <div className = 'cart-image'><img classname = 'cart-pic' src ={product.image} alt = '' height="100%" width="100%"></img></div>
+                            <div className = 'cart-item-info'>{product.name}</div>
+                            <div className = 'qty-div'>
+                                {/* <Select classname='qty-select' options = {options} placeholder = '1'/> */}
+                                {/* <span className='remove'>REMOVE</span> */}
+                            </div>
+                            <div className = 'item-price-div'>
+                                <span className = 'item-price-in-div'>${product.price}</span>
+                            </div>
+                            {this.state.total}
+                        </div>
+            )
+        })
+    }
 
     render(){
+        console.log(this.state)
         const options = [
             {label: 1, value: 1, className: 'custom-class'},
             {label: 2, value: 2, className: 'awesome-class'},
@@ -24,7 +98,9 @@ class Cart extends Component{
             <div>
                 <Nav url = '/'/>
                 <div className = 'cart-body'>
-                    <div className = 'above-items'><span className='my-bag'>My Bag</span><button className='checkout-button'>CHECKOUT</button></div>
+                    <div className = 'above-items'><span className='my-bag'>My Bag</span>
+                    <button className='checkout-button'>CHECKOUT</button>
+                    <StripeCheckout token={this.onToken} stripeKey="pk_test_H1YHH7QyC8ejZ0BylwBj6XBI"/></div>
                     <div className = 'all-info'>
                         <div className = 'top-info'>
                             <span className = 'product-text'>PRODUCT</span>
@@ -32,18 +108,7 @@ class Cart extends Component{
                             <span className = 'price-text'>PRICE</span>
                             <span className = 'total-text'>TOTAL PRICE</span>
                         </div>
-                        <div className = 'other-info'>
-                            {/* <img className = 'cart-image' src={''} alt={''}/> */}
-                            <div className = 'cart-image'/>
-                            <div className = 'cart-item-info'></div>
-                            <div className = 'qty-div'>
-                                <Select classname='qty-select' options = {options} placeholder = '1'/>
-                                {/* <span className='remove'>REMOVE</span> */}
-                            </div>
-                            <div className = 'item-price-div'>
-                                <span className = 'item-price-in-div'>$750</span>
-                            </div>
-                        </div>
+                        {this.renderProducts()}
                     </div>
                 </div>
             </div>

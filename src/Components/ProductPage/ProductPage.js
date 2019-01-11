@@ -4,11 +4,13 @@ import Nav from '../../Components/Nav/Nav'
 import {connect} from 'react-redux';
 import {toggle} from '../../Logic/logic'
 import {updateProduct} from '../../ducks/reducer'
+import {updateCart} from '../../ducks/reducer'
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
+import axios from 'axios'
 
 
 
@@ -43,6 +45,15 @@ detailsButton(){
 handleChange = event => {
     this.setState({ [event.target.name]: event.target.value });
   };
+
+addToCart(i){
+    console.log(i)
+    let id = i
+    axios.post('/api/setCart', {id}).then(
+        this.props.updateCart()
+    )
+    console.log(this.props.cart)
+}
 
 
 render(){
@@ -89,7 +100,7 @@ render(){
                             </div>
                         </div>
                         <div className = 'order-div'>
-                            <button className = 'order-button'>Add to Cart</button>
+                            <button className = 'order-button' onClick={() =>this.addToCart(recipe)}>Add to Cart</button>
                             <FormControl className='qty-button'>
                                 <InputLabel htmlFor="age-helper">qty</InputLabel>
                                 <Select
@@ -129,8 +140,9 @@ render(){
 
 function mapStateToProps(duckState) {
     return {
-        product: duckState.product
+        product: duckState.product,
+        cart: duckState.cart
     }
 }
 
-export default connect(mapStateToProps, {updateProduct})(ProductPage);
+export default connect(mapStateToProps, {updateProduct, updateCart})(ProductPage);

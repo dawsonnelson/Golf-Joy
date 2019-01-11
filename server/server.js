@@ -3,8 +3,9 @@ const express = require('express');
 const massive = require('massive');
 const session = require('express-session');
 const bodyParser = require('body-parser');
-const axios = require('axios')
-
+const stripe = require("stripe")("sk_test_U9uHAjmLFwCjbC6GTyxqaktj");
+const axios = require('axios');
+const nodemailer = require("nodemailer");
 
 const {
     SERVER_PORT,
@@ -12,7 +13,8 @@ const {
     REACT_APP_DOMAIN,
     REACT_APP_CLIENT_ID,
     REACT_APP_CLIENT_SECRET,
-    SECRET
+    SECRET,
+    PASS
 } = process.env
 
 const app = express();
@@ -34,6 +36,39 @@ app.use(session({
 app.use(express.static( `${__dirname}/../build`) );
 
 app.use(express.json());
+
+
+//   app.post('/api/email', (req, res) =>{
+//         let user = req.session.user.email
+
+//         let transporter = nodemailer.createTransport({
+//             service: 'gmail',
+//             secure: false,
+//             port: 25,
+//             auth: {
+//                 user: 'golfjoyfun@gmail.com',
+//                 pass: PASS
+//             },
+//             tls: {
+//                 rejectUnauthorized: false
+//             }
+//         });
+
+//         let HelperOptions = {
+//             from: '"Golf Joy" <golfjoyfun@gmail.com',
+//             to: {user},
+//             subject: 'Hello, world!',
+//             text: 'good job'
+//         };
+
+//         transporter.sendMail(HelperOptions, (error, info) => {
+//             if (error) {
+//             return console.log(error);
+//             }
+//             console.log("The message was sent!");
+//             console.log(info);
+//         });
+//         })
 
 //endpoints
 app.get('/auth/callback', async (req, res) => {
@@ -89,6 +124,56 @@ app.get('/auth/callback', async (req, res) => {
 //    }
 //    } 
 
+app.post('/api/payment', (req, res) => {
+    const { amount, token:{id} } = req.body //destruct
+    stripe.charges.create(                 //create new
+       {
+          amount: amount,
+          currency: "usd",
+          source: id,
+          description: "Charge it to Stripe Test..."
+       },
+       (err, charge) => {                  //err handling
+          if(err){
+            //  console.log(err)
+             return res.status(500).send(err) //webserver err
+          } else {
+            //  console.log(charge)
+             return res.status(200).send(charge)
+          }
+       }
+    )
+})
+
+app.post('/api/setCart', (req, res) => {
+    const id = req.body.id.id
+    console.log(id)
+    const userid = req.session.user.id
+    const image = req.body.id.image
+    const name = req.body.id.name
+    const price = req.body.id.price
+    console.log(req.body.id.name)
+    console.log(req.body.id.price)
+    // console.log(req.body.id.type)
+    // console.log(req.body.id.subtype)
+    // console.log(req.body.id.image)
+    // console.log(req.body.id.image2)
+    // console.log(req.body.id.description)
+    // console.log(req.body.id.details)
+    // console.log(req.session.user.id)
+    const db = req.app.get('db')
+    db.set_cart(id, userid, image, name, price)
+})
+
+app.get('/api/getCart', (req, res) =>{
+    console.log(req.session.user.id)
+    let userid = req.session.user.id
+    const db = req.app.get('db')
+    db.get_cart(userid)
+    .then(resp=>{
+        res.status(200).send(resp)
+    })
+})
 
 app.get('/api/userData', (req, res) => {
     if(req.session.user){
