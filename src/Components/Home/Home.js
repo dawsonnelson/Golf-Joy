@@ -13,11 +13,11 @@ class Home extends Component{
             <div>
                 <Nav url = '/'/>
                 <div className ='video-container'>
-                    <video className='video' src='https://acushnet.scene7.com/is/content/footjoy/FJ%201857/slot-1-homepage-loop.mp4' autoplay = "true" loop = "true" width='100%'
-                    height='100%' playing/>
+                    <video className='video' src='https://acushnet.scene7.com/is/content/footjoy/FJ%201857/slot-1-homepage-loop.mp4' autoPlay muted loop = "true" width='100%'
+                    height='100%'/>
                 </div>
                 <div className = 'body'>
-                    <h6 className = 'filler'>Filler</h6>
+                    <h6 className = 'filler'>Golf Joy</h6>
                     <span className = 'under-filler'>Devoted to crafting the finest golf ware</span>
                     <span className = 'under-under'>of incomparable quality and design</span>
                 </div>

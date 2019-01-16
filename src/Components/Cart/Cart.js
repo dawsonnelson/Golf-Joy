@@ -2,10 +2,9 @@ import React, {Component} from 'react';
 import './Cart.css'
 import Nav from '../Nav/Nav';
 import {connect} from 'react-redux'
-import Select from 'react-select'
+// import Select from 'react-select'
 import axios from 'axios';
 import StripeCheckout from 'react-stripe-checkout';
-import { appendFile } from 'fs';
 
 class Cart extends Component{
     constructor(props){
@@ -38,12 +37,22 @@ class Cart extends Component{
         })
     }
 
+    removeItemFromCart(i){
+        // console.log(i);
+        let id = i
+        console.log(id)
+        axios.delete(`/api/removeItem/${id}`);
+        window.location.reload();
+    }
+
       onToken = token => {
         token.card = void 0;
         axios.post("/api/payment", { token, amount: this.state.total})
           .then(res => {
             console.log(res);
-            axios.post('/api/email')
+            axios.post('/api/email', {products: this.state.products, amount: this.state.total});
+            axios.delete('/api/clearCart');
+            window.location.reload();
           });
       };
 
@@ -61,8 +70,9 @@ class Cart extends Component{
                             </div>
                             <div className = 'item-price-div'>
                                 <span className = 'item-price-in-div'>${product.price}</span>
+                                <button className = 'remove-item' onClick={() => this.removeItemFromCart(product.id)}>Remove</button>
                             </div>
-                            {this.state.total}
+                            <span className = 'total'>{this.state.total}</span>
                         </div>
             )
         })
@@ -89,7 +99,7 @@ class Cart extends Component{
                 <div className = 'cart-body'>
                     <div className = 'above-items'><span className='my-bag'>My Bag</span>
                     <button className='checkout-button'>CHECKOUT</button>
-                    <StripeCheckout token={this.onToken} stripeKey="pk_test_H1YHH7QyC8ejZ0BylwBj6XBI"/></div>
+                    <StripeCheckout class = "stripe-button-el" token={this.onToken} stripeKey="pk_test_H1YHH7QyC8ejZ0BylwBj6XBI"/></div>
                     <div className = 'all-info'>
                         <div className = 'top-info'>
                             <span className = 'product-text'>PRODUCT</span>
@@ -111,3 +121,8 @@ function mapStateToProps(duckState) {
 }
 
 export default connect(mapStateToProps, {})(Cart);
+
+
+
+
+// Make it so the cart clears on pay

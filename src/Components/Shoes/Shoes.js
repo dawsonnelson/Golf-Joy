@@ -89,7 +89,7 @@ class Shoes extends Component{
                 <div className = 'shoe-body'>
                     <div className = 'SBNav'>
                         <span className = 'filter-span-1'>Filter by</span>
-                        <span className = 'filter-span'>ALL</span>
+                        <button className = 'filter-span' onClick={() => this.setFilter('')}>ALL</button>
                         <button className = 'filter-span' onClick={() => this.setFilter('Golf')}>GOLF</button>
                         <button className = 'filter-span' onClick={() => this.setFilter('Dress')}>DRESS</button>
                         <button className = 'filter-span' onClick={() => this.setFilter('Casual')}>CASUAL</button>

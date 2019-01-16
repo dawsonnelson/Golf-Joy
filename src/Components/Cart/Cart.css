@@ -35,6 +35,18 @@
     background-color: #011F5D
 }
 
+.stripe-button-el {
+    display: flex;
+    justify-content: center;
+    width: 18%;
+    height: 70%;
+    margin-left: 71%;
+    font-family: 'Vidaloka', serif;
+    color: white;
+    font-size: 14px;
+    background-color: #011F5D
+}
+
 .top-info{
     display: flex;
     align-items: center;
@@ -108,12 +120,14 @@
 } */
 
 .item-price-div{
-    margin-left: 11%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    margin-left: 10.2%;
     width: 8%;
     height: 100%;
     /* background: yellow; */
-    display: flex;
-    justify-content: center;
 }
 
 .item-price-in-div{
@@ -121,4 +135,26 @@
     font-family: 'Vidaloka', serif;
     font-weight: bold;
     font-size: 15px;
+    height: 10%;
 }
+
+.remove-item{
+    margin-top: 25%;
+    margin-left: 8%;
+    border: none;
+    width: 80%;
+    height: 10%;
+    font-family: 'Vidaloka', serif;
+    font-size: 16px;
+    color: #011F5D;
+    text-decoration: green
+}
+
+.total{
+    display: flex;
+    align-items: center;
+    font-family: 'Vidaloka', serif;
+    height: 50%;
+    margin-left: 21%;
+}
+

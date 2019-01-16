@@ -39,6 +39,10 @@ app.use(express.json());
 
 
   app.post('/api/email', (req, res) =>{
+      const { amount } = req.body.amount
+      const { products } = req.body.products
+      console.log(amount)
+    //   console.log({amount})
         let user = req.session.user.email
 
         let transporter = nodemailer.createTransport({
@@ -58,7 +62,7 @@ app.use(express.json());
             from: '"Golf Joy" <golfjoyfun@gmail.com',
             to: user,
             subject: 'Hello, world!',
-            text: 'good job'
+            text: "Hello thank you for your purchase of", amount
         };
 
         transporter.sendMail(HelperOptions, (error, info) => {
@@ -147,13 +151,13 @@ app.post('/api/payment', (req, res) => {
 
 app.post('/api/setCart', (req, res) => {
     const id = req.body.id.id
-    console.log(id)
+    // console.log(id)
     const userid = req.session.user.id
     const image = req.body.id.image
     const name = req.body.id.name
     const price = req.body.id.price
-    console.log(req.body.id.name)
-    console.log(req.body.id.price)
+    // console.log(req.body.id.name)
+    // console.log(req.body.id.price)
     // console.log(req.body.id.type)
     // console.log(req.body.id.subtype)
     // console.log(req.body.id.image)
@@ -163,6 +167,21 @@ app.post('/api/setCart', (req, res) => {
     // console.log(req.session.user.id)
     const db = req.app.get('db')
     db.set_cart(id, userid, image, name, price)
+})
+
+app.delete('/api/clearCart', (req, res) => {
+    console.log('clear')
+    console.log(req.session.user.id)
+    const db = req.app.get('db')
+    db.clear_cart(req.session.user.id)
+})
+
+app.delete('/api/removeItem/:id', (req, res) => {
+    console.log(req.params)
+    let {id} = req.params
+    // const item = req.body
+    const db = req.app.get('db')
+    db.remove_item([id])
 })
 
 app.get('/api/getCart', (req, res) =>{

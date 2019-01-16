@@ -107,7 +107,8 @@ a.cart-to-link{
 }
 
 a:link{
-    text-decoration: none
+    text-decoration: none;
+    color: white;
 
 }
 

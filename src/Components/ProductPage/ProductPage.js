@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import './ProductPage.css';
 import Nav from '../../Components/Nav/Nav'
 import {connect} from 'react-redux';
-import {toggle} from '../../Logic/logic'
+// import {toggle} from '../../Logic/logic'
 import {updateProduct} from '../../ducks/reducer'
 import {updateCart} from '../../ducks/reducer'
 import MenuItem from '@material-ui/core/MenuItem';

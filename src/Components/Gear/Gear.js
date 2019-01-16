@@ -13,16 +13,16 @@ class Gear extends Component{
         }
     }
 
-    componentDidMount(){
-        axios.get('/api/getShoes')
-        .then(res=>{
-            console.log(res.data)
-            this.setState({
-                stuff: res.data
-            })
-            console.log(this.state)
-        })
-    }
+    // componentDidMount(){
+    //     axios.get('/api/getShoes')
+    //     .then(res=>{
+    //         console.log(res.data)
+    //         this.setState({
+    //             stuff: res.data
+    //         })
+    //         console.log(this.state)
+    //     })
+    // }
 
     renderItems(){
         return this.state.stuff.map((products) => {
