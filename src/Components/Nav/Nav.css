@@ -63,15 +63,25 @@
 
 a.cart-to-link{
     display: flex;
-    justify-content: space-around
+    justify-content: space-around;
+    margin-right: 5px;
     
 }
 
 .login-link{
-    margin-left: 54%;
+    margin-left: 52%;
     height: 25%;
     padding: 12px;
     color: white;
+    font-family: 'Vidaloka', serif;
+}
+
+.logButton{
+    background: none;
+    border: none;
+    color: white;
+    font-size: 13px;
+    font-weight: bolder;
     font-family: 'Vidaloka', serif;
 }
 

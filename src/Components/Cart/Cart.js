@@ -42,8 +42,24 @@ class Cart extends Component{
         let id = i
         console.log(id)
         axios.delete(`/api/removeItem/${id}`);
-        window.location.reload();
+        console.log(this.state)
+        console.log(i)
+        window.location.reload()
     }
+
+    // removeItemFromCart(i){
+    //     var array = this.state.products.map(function(e) { return e.id; }).indexOf(i)
+    //     console.log(array)
+    //     // if(index !== -1);
+    //     this.state.products.splice(array, 1);
+    //     // this.setState({products: array});
+    //     // console.log(i);
+    //     let id = i
+    //     // console.log(id)
+    //     axios.delete(`/api/removeItem/${id}`);
+    //     // console.log(this.state)
+    //     // console.log(index)
+    // }
 
       onToken = token => {
         token.card = void 0;
@@ -72,7 +88,7 @@ class Cart extends Component{
                                 <span className = 'item-price-in-div'>${product.price}</span>
                                 <button className = 'remove-item' onClick={() => this.removeItemFromCart(product.id)}>Remove</button>
                             </div>
-                            <span className = 'total'>{this.state.total}</span>
+                            <span className = 'total'>${this.state.total}</span>
                         </div>
             )
         })
@@ -98,8 +114,9 @@ class Cart extends Component{
                 <Nav url = '/'/>
                 <div className = 'cart-body'>
                     <div className = 'above-items'><span className='my-bag'>My Bag</span>
-                    <button className='checkout-button'>CHECKOUT</button>
-                    <StripeCheckout class = "stripe-button-el" token={this.onToken} stripeKey="pk_test_H1YHH7QyC8ejZ0BylwBj6XBI"/></div>
+                    {/* <button className='checkout-button'>CHECKOUT</button> */}
+                    <StripeCheckout token={this.onToken} stripeKey={process.env.REACT_APP_STRIPE_KEY}/>
+                    </div>
                     <div className = 'all-info'>
                         <div className = 'top-info'>
                             <span className = 'product-text'>PRODUCT</span>

@@ -3,16 +3,28 @@ import './Account.css'
 import Nav from '../Nav/Nav';
 import {connect} from 'react-redux'
 import {updateUser} from '../../ducks/reducer'
-import Axios from 'axios';
+import axios from 'axios';
 
 class Account extends Component{
 
     
 
-    async componentDidMount(){
-        let userData = await Axios.get('/api/userData');
-        this.props.updateUser(userData.data)
-        console.log(this.props.updateUser(userData.data))
+    componentDidMount(){
+        axios.get('/api/userData')
+        .then(res=>{
+            console.log(res)
+            let userData = res
+            this.props.updateUser(userData.data.id)
+            console.log(this.props.updateUser(userData.data.id))
+            console.log(this.props.user)
+        })
+        // console.log(userData)
+    }
+
+    Logout(){
+        axios.get('/api/logout')
+        let path = '/'
+        this.props.history.push(path)
     }
 
     render(){
@@ -32,7 +44,7 @@ class Account extends Component{
                     </div>
                     <div className = 'a-body-right'>
                         <h1 className = 'right-my-account'>My Account</h1>
-                        <h1 className = 'testya'>Dawson Nelson Log out</h1>
+                        <h1 className = 'testya'>Dawson Nelson Log out</h1><button onClick={this.Logout.bind(this)}>Log out</button>
                         <h2 className = 'right-my-info'>MY INFORMATION</h2>
                         <h1 className = 'show-or'>Show or update your personal information</h1>
                         <h2 className = 'right-address'>ADDRESSES</h2>
@@ -50,6 +62,7 @@ class Account extends Component{
 
 function mapStateToProps(duckState) {
     return {
+        user: duckState.user
     }
 }
 

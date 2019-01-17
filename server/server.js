@@ -88,7 +88,7 @@ app.get('/auth/callback', async (req, res) => {
     // trade code for token 
     let resWithToken = await axios.post(`https://${REACT_APP_DOMAIN}/oauth/token`, payload)
     //use token to get user data
-    console.log(resWithToken.data)
+    // console.log(resWithToken.data)
 
 
     let resWithUserData = await axios.get(`https://${REACT_APP_DOMAIN}/userinfo?access_token=${resWithToken.data.access_token}`)
@@ -216,6 +216,10 @@ app.get('/api/getApparel', (req, res) =>{
     .then(resp=>{
         res.status(200).send(resp)
     })
+})
+
+app.get('/api/logout', (req, res) => {
+    req.session.destroy();
 })
 
 // app.get('/api/getGolfShirt', (req, res) =>{

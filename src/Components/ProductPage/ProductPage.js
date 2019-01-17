@@ -49,8 +49,9 @@ handleChange = event => {
 addToCart(i){
     console.log(i)
     let id = i
+    let num = 1
     axios.post('/api/setCart', {id}).then(
-        this.props.updateCart()
+        this.props.updateCart(num)
     )
     console.log(this.props.cart)
 }

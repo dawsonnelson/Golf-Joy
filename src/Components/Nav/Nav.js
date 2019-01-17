@@ -4,6 +4,9 @@ import { Link } from 'react-router-dom'
 import leftsym from '../../Assets/left-sym.png'
 import {connect} from 'react-redux'
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
+import axios from 'axios'
+import { number } from 'prop-types';
+import { isNumber } from 'util';
 
 class Nav extends Component{
     constructor() {
@@ -11,6 +14,8 @@ class Nav extends Component{
 
         this.state = {
             // ya: false
+            products: [],
+            user: {}
         }
     }
 
@@ -20,6 +25,42 @@ class Nav extends Component{
         window.location =  `https://${REACT_APP_DOMAIN}/authorize?client_id=${REACT_APP_CLIENT_ID}&scope=openid%20profile%20email&redirect_uri=${url}&response_type=code`
         console.log(window.location)
     }
+
+    componentDidMount(){
+        axios.get('/api/getCart')
+        .then(res=>{
+            console.log(res.data)
+            console.log(this.props.user)
+            this.setState({
+                products: res.data,
+            })
+        })
+        .then(
+        axios.get('/api/userData')
+        .then(res=>{
+            console.log(res.data)
+            let userData = res
+            this.setState({
+                user: userData.id
+            })
+        })
+        )
+    }
+
+    renderLogin(){
+        console.log(this.props.user)
+        if(this.state.user === isNumber){
+            return(
+                <Link to ="/Account">Account</Link>
+                )
+            } else {
+                return(
+                    <button className = 'logButton' onClick = {this.login}>Log in</button>
+            )
+        }
+    }
+        
+    
 
 
     render(){
@@ -32,8 +73,9 @@ class Nav extends Component{
                     <div className = 'center-stuff3'><Link to ="/Gear">CRAFTMANSHIP</Link></div>
                 </div>
                 <div className = 'nav-right'>
-                    <div className = 'login-link'><button onClick = {this.login}>Log in</button></div>
-                    <div className = 'cart-link'><Link to ="/Cart" className = 'cart-to-link'><span className='cart-text'>Cart</span><AddShoppingCartIcon /></Link>{this.props.cart}</div>
+                    <div className = 'login-link'>{this.renderLogin()}</div>
+                    
+                    <div className = 'cart-link'><Link to ="/Cart" className = 'cart-to-link'><span className='cart-text'>Cart</span><AddShoppingCartIcon /></Link>{this.state.products.length}</div>
                 </div>
             </div>
         )
@@ -43,7 +85,8 @@ class Nav extends Component{
 
 function mapStateToProps(duckState) {
     return {
-        cart: duckState.cart
+        cart: duckState.cart,
+        user: duckState.user
     }
 }
 
