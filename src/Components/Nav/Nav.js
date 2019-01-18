@@ -5,8 +5,6 @@ import leftsym from '../../Assets/left-sym.png'
 import {connect} from 'react-redux'
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 import axios from 'axios'
-import { number } from 'prop-types';
-import { isNumber } from 'util';
 
 class Nav extends Component{
     constructor() {
@@ -15,7 +13,7 @@ class Nav extends Component{
         this.state = {
             // ya: false
             products: [],
-            user: {}
+            user: ['']
         }
     }
 
@@ -29,8 +27,8 @@ class Nav extends Component{
     componentDidMount(){
         axios.get('/api/getCart')
         .then(res=>{
-            console.log(res.data)
-            console.log(this.props.user)
+            // console.log(res.data)
+            // console.log(this.props.user)
             this.setState({
                 products: res.data,
             })
@@ -49,13 +47,13 @@ class Nav extends Component{
 
     renderLogin(){
         console.log(this.props.user)
-        if(this.state.user === isNumber){
+        if(this.props.user === ''){
             return(
-                <Link to ="/Account">Account</Link>
+                <button className = 'logButton' onClick = {this.login}>Log in</button>
                 )
             } else {
                 return(
-                    <button className = 'logButton' onClick = {this.login}>Log in</button>
+                    <Link to ="/Account">Account</Link>
             )
         }
     }

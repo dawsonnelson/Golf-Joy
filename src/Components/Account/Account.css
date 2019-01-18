@@ -127,3 +127,19 @@
     margin-left: 3%;
     border-bottom: solid black 1px
 }
+
+.show-or2{
+    font-style: italic;
+    font-size: 12px;
+    height: 4%;
+    width: 50%;
+    margin-left: 3%;
+}
+
+.logButton2{
+    background: none;
+    border: none;
+    color: black;
+    font-style: italic;
+    font-size: 12px;
+}

@@ -6,7 +6,14 @@ import {updateUser} from '../../ducks/reducer'
 import axios from 'axios';
 
 class Account extends Component{
+    constructor() {
+        super();
 
+        this.state = {
+            userName: '',
+            email: ''
+        }
+    }
     
 
     componentDidMount(){
@@ -17,6 +24,10 @@ class Account extends Component{
             this.props.updateUser(userData.data.id)
             console.log(this.props.updateUser(userData.data.id))
             console.log(this.props.user)
+            this.setState({
+                userName: userData.data.user_name,
+                email: userData.data.email
+            })
         })
         // console.log(userData)
     }
@@ -25,10 +36,11 @@ class Account extends Component{
         axios.get('/api/logout')
         let path = '/'
         this.props.history.push(path)
+        window.location.reload()
     }
 
     render(){
-        console.log(this.props)
+        console.log(this.state)
         return(
             <div>
                 <Nav url = '/'/>
@@ -44,9 +56,10 @@ class Account extends Component{
                     </div>
                     <div className = 'a-body-right'>
                         <h1 className = 'right-my-account'>My Account</h1>
-                        <h1 className = 'testya'>Dawson Nelson Log out</h1><button onClick={this.Logout.bind(this)}>Log out</button>
+                        <h1 className = 'testya'>{this.state.userName}<button className = 'logButton2' onClick={this.Logout.bind(this)}>Log out</button></h1>
                         <h2 className = 'right-my-info'>MY INFORMATION</h2>
-                        <h1 className = 'show-or'>Show or update your personal information</h1>
+                        <h1 className = 'show-or2'>Show or update your personal information</h1>
+                        <h1 className = 'show-or'>{this.state.email}</h1>
                         <h2 className = 'right-address'>ADDRESSES</h2>
                         <h1 className = 'show-or'>Manage your billing and shipping addresses</h1>
                         <h2 className = 'right-orders'>ORDERS</h2>
