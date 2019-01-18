@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import './Cart.css'
 import Nav from '../Nav/Nav';
 import {connect} from 'react-redux'
+import {updateUser} from '../../ducks/reducer'
 // import Select from 'react-select'
 import axios from 'axios';
 import StripeCheckout from 'react-stripe-checkout';
@@ -24,6 +25,11 @@ class Cart extends Component{
                 products: res.data,
             })
             this.updateTotal()
+        })
+        axios.get('/api/userData')
+        .then(res=>{
+            let userData = res
+            this.props.updateUser(userData.data.id)
         })
     }
 
@@ -134,10 +140,11 @@ class Cart extends Component{
 
 function mapStateToProps(duckState) {
     return {
+        user: duckState.user
     }
 }
 
-export default connect(mapStateToProps, {})(Cart);
+export default connect(mapStateToProps, {updateUser})(Cart);
 
 
 

@@ -2,11 +2,21 @@ import React, {Component} from 'react';
 import './Home.css'
 import Nav from '../Nav/Nav';
 import {connect} from 'react-redux'
+import {updateUser} from '../../ducks/reducer'
+import axios from 'axios';
 // import {toggle} from '../../Logic/logic'
 //toggle is for the function tests
 
 
 class Home extends Component{
+
+    componentDidMount(){
+        axios.get('/api/userData')
+        .then(res=>{
+            let userData = res
+            this.props.updateUser(userData.data.id)
+        })
+    }
 
     render(){
         return(
@@ -28,7 +38,8 @@ class Home extends Component{
 
 function mapStateToProps(duckState) {
     return {
+        user: duckState.user
     }
 }
 
-export default connect(mapStateToProps, {})(Home);
+export default connect(mapStateToProps, {updateUser})(Home);
