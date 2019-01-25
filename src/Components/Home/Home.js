@@ -43,3 +43,4 @@ function mapStateToProps(duckState) {
 }
 
 export default connect(mapStateToProps, {updateUser})(Home);
+

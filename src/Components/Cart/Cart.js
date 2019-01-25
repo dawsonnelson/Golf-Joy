@@ -149,4 +149,5 @@ export default connect(mapStateToProps, {updateUser})(Cart);
 
 
 
+
 // Make it so the cart clears on pay
